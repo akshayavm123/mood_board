@@ -13,5 +13,11 @@ Backend   →  Node.js + Express
 AI API    →  Groq (llama-3.3-70b-versatile)
 Database  →  Supabase (PostgreSQL)
 Fonts     →  Google Fonts (Pacifico + Righteous)
+React Router          →  multiple pages
+Auth0                 →  authentication
+REST API              →  your own endpoints
+Vercel                →  frontend cloud deployment
+Render                →  backend cloud deployment
+Git + GitHub          →  version control
 ```
 ---
