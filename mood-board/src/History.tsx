@@ -16,7 +16,7 @@ function History() {
 
   useEffect(() => {
     async function fetchHistory() {
-      const response = await fetch(`http://localhost:3000/api/history/${user?.sub}`)
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/history/${user?.sub}`)
       const data = await response.json()
       setHistory(data.history)
       setLoading(false)

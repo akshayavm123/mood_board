@@ -11,7 +11,7 @@ function App() {
 
   async function handleSubmit() {
     setLoading(true)
-    const response = await fetch('http://localhost:3000/api/generate-mood', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/generate-mood`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mood, userId: user?.sub })
