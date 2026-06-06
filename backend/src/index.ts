@@ -21,7 +21,7 @@ app.get('/api/health', (req, res) => {
 })
 
 app.post('/api/generate-mood', async (req, res) => {
-  const { mood } = req.body
+  const { mood, userId } = req.body
 
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
@@ -45,13 +45,29 @@ app.post('/api/generate-mood', async (req, res) => {
 
   const { error } = await supabase
     .from('mood_boards')
-    .insert({ mood, result })
+    .insert({ mood, result, user_id: userId })
 
   if (error) console.error('Database error:', error)
 
   res.json({ result })
 })
+app.get('/api/history/:userId', async (req, res) => {
+  const { userId } = req.params
 
+  const { data, error } = await supabase
+    .from('mood_boards')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('History error:', error)
+    res.status(500).json({ error: 'Failed to fetch history' })
+    return
+  }
+
+  res.json({ history: data })
+})
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`)
 })
